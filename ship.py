@@ -15,7 +15,7 @@ class Ship():
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
 
-        # Armazena um valor decimal para o centro da nava
+        # Armazena um valor decimal para o centro da nave
         self.center = float(self.rect.centerx)
 
         # Flags de movimento
