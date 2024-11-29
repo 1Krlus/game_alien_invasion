@@ -31,22 +31,17 @@ class Ship():
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.centerx += self.settings.ship_speed_factor
         
-        # Move a nave para a esquerda
-        if self.moving_left and self.rect.left > 0:
+        if self.moving_left and self.rect.left > 0: # Move a nave para a esquerda
             self.centerx -= self.settings.ship_speed_factor
 
-        # Move a nave para cima
-        if self.moving_up and self.rect.top > 0:
+        if self.moving_up and self.rect.top > 0: # Move a nave para cima
            self.centery -= self.settings.ship_speed_factor
 
-        # Move a nave para baixo
-        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom: # Move a nave para baixo
             self.centery += self.settings.ship_speed_factor
     
-        # Atualiza o objeto rect de acordo
-        self.rect.centerx = self.centerx
-        self.rect.centery = self.centery
+        self.rect.centerx = self.centerx # Atualiza o objeto rect de acordo com o eixo x
+        self.rect.centery = self.centery # Atualiza o objeto rect de acordo com o eixo y
 
-    # Desenha a espaçonave em sua posição atual.
-    def blitme(self):
+    def blitme(self): # Desenha a espaçonave em sua posição atual.
         self.screen.blit(self.image, self.rect)

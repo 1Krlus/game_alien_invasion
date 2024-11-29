@@ -1,6 +1,19 @@
 import sys
 import pygame
 from bullet import Bullet
+from alien import Alien
+
+def create_fleet(settings, screen, aliens): # Cria uma frota de aliens
+    alien = Alien(settings, screen)
+    alien_width = alien.rect.width
+    available_space_x = settings.screen_width - 2 * alien_width # Cria um alien e calcula o número de aliens em uma linha
+    number_aliens_x = int(available_space_x / (2 * alien_width)) # O espaçamento entre os aliens é igual à largura de um alien
+
+    for alien_number in range(number_aliens_x): # Cria a primeira linha de aliens
+        alien = Alien(settings, screen)
+        alien.x = alien_width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        aliens.add(alien)
 
 def check_keydown_events(event, settings, screen, ship, bullets): # Responde a pressionamentos de tecla
     if event.key == pygame.K_d: # Se a tecla D foi pressionada
@@ -14,6 +27,8 @@ def check_keydown_events(event, settings, screen, ship, bullets): # Responde a p
     elif event.key == pygame.K_SPACE: # Se a tecla espaço for precionada
         new_bullet = Bullet(settings, screen, ship, "images/bullet.bmp") #Cria um novo projétil e o adiciona ao grupo de projéteis
         bullets.add(new_bullet)
+    elif event.key == pygame.K_BACKSPACE:
+        sys.exit()
 
 def check_keyup_events(event, ship): # Responde a solturas de tecla
     if event.key == pygame.K_d:
@@ -36,9 +51,13 @@ def check_events(settings, screen, ship, bullets): #Responde a eventos de pressi
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
 
-def update_screen(settings, screen, ship, bullets): # Atualiza as imagens na tela e alterna para a nova tela.
+def update_screen(settings, screen, ship, aliens, bullets): # Atualiza as imagens na tela e alterna para a nova tela.
     screen.blit(settings.bg_image, (0, 0)) #Redesenha a tela a cada passagem pelo laço
+   
     for bullet in bullets.sprites(): # Redesenha todos os projéteis atrás da espaçonave e dos alienígenas
         bullet.draw_bullet()
+
     ship.blitme()
+    aliens.draw(screen)
+
     pygame.display.flip() # Deixa a tela mais recente visível
