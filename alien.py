@@ -17,3 +17,17 @@ class Alien(Sprite): # Uma classe que representa um único alien da frota
 
     def blitme(self):
         self.screen.blit(self.image, self.rect) # Desenha o alien em sua posição atual
+
+    def check_edges(self):
+        # Devolve True se o alien estiver na borda da tela
+        screen_rect = self.screen.get_rect()
+        
+        if self.rect.right >= screen_rect.right:
+            return True
+        elif self.rect.left <= 0:
+            return True
+
+    def update(self):
+        # Move o alien para a direita ou para a esquerda
+        self.x += (self.settings.alien_speed_factor * self.settings.fleet_direction)
+        self.rect.x = self.x
